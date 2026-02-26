@@ -334,6 +334,7 @@ select:focus {
         transform: translateY(0) rotate(0deg);
         opacity: 1;
     }
+
     100% {
         transform: translateY(-100vh) rotate(360deg);
         opacity: 0;
@@ -460,7 +461,8 @@ footer {
     gap: 15px;
 }
 
-.btn-text-danger, .btn-text-muted {
+.btn-text-danger,
+.btn-text-muted {
     background: none;
     border: none;
     font-size: 0.85rem;

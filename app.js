@@ -21,7 +21,7 @@ function setupPatientName() {
     const input = document.getElementById('patient-name-input');
     // Cargar nombre guardado
     input.value = localStorage.getItem('patientName') || '';
-    
+
     // Guardar nombre al cambiar
     input.addEventListener('input', () => {
         localStorage.setItem('patientName', input.value);
@@ -283,7 +283,7 @@ function hideAlert() {
 document.getElementById('btn-take-med').addEventListener('click', () => {
     if (currentAlertItem) {
         markAsTaken(currentAlertItem.medId, currentAlertItem.instanceId);
-        playApplause(); // EFECTO VISUAL Y SONORO
+        playApplause(); // Sonido de celebración
     }
 });
 
@@ -333,14 +333,14 @@ function playApplause() {
         const emoji = document.createElement('div');
         emoji.className = 'applause-emoji';
         emoji.textContent = '👏';
-        
+
         // Posición aleatoria horizontal
         emoji.style.left = Math.random() * 100 + 'vw';
         // Retraso aleatorio para el efecto de lluvia
         emoji.style.animationDelay = Math.random() * 0.5 + 's';
-        
+
         container.appendChild(emoji);
-        
+
         // Limpiar elemento después de la animación
         setTimeout(() => emoji.remove(), 2500);
     }
@@ -372,7 +372,7 @@ function playApplause() {
             noise.start(startTime);
             noise.stop(startTime + 0.2);
         }
-    } catch (e)) {
+    } catch (e) {
         console.log("Error al reproducir aplauso sonoro");
     }
 }
