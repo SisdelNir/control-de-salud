@@ -359,9 +359,27 @@ function playApplause() {
     }
 }
 
-// Botón de Reinicio con Clave
+// Botón de Borrar Historial con Clave
+document.getElementById('btn-clear-history').addEventListener('click', () => {
+    const password = prompt("Por favor, ingresa la clave para borrar el historial de tomas:");
+
+    if (password === "N55211") {
+        if (confirm("¿Estás seguro de que deseas borrar solo el HISTORIAL de tomas? Los medicamentos se mantendrán.")) {
+            medications.forEach(med => {
+                med.takenLog = [];
+            });
+            saveData();
+            renderTimeline();
+            alert("Historial borrado con éxito.");
+        }
+    } else if (password !== null) {
+        alert("Clave incorrecta. No se han realizado cambios.");
+    }
+});
+
+// Botón de Reinicio Total con Clave
 document.getElementById('btn-reset-app').addEventListener('click', () => {
-    const password = prompt("Por favor, ingresa la clave para borrar todos los datos:");
+    const password = prompt("Por favor, ingresa la clave para borrar TODOS los datos:");
 
     if (password === "N55211") {
         if (confirm("¿Estás seguro de que deseas borrar TODA la configuración y medicamentos? Esta acción no se puede deshacer.")) {
