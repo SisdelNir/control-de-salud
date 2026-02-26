@@ -295,6 +295,27 @@ select:focus {
     margin-bottom: 10px;
 }
 
+/* Aplauso Visual (Confeti) */
+.applause-emoji {
+    position: fixed;
+    bottom: -50px;
+    font-size: 2rem;
+    z-index: 1000;
+    pointer-events: none;
+    animation: applause-fly 2s ease-out forwards;
+}
+
+@keyframes applause-fly {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
 /* Modal Styles */
 .modal {
     position: fixed;

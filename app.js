@@ -265,7 +265,7 @@ function hideAlert() {
 document.getElementById('btn-take-med').addEventListener('click', () => {
     if (currentAlertItem) {
         markAsTaken(currentAlertItem.medId, currentAlertItem.instanceId);
-        playApplause(); // Sonido de celebración
+        playApplause(); // EFECTO VISUAL Y SONORO
     }
 });
 
@@ -309,43 +309,53 @@ function playChime() {
 }
 
 function playApplause() {
+    // EFECO VISUAL: Lluvia de aplausos (emoji confeti)
+    const container = document.body;
+    for (let i = 0; i < 20; i++) {
+        const emoji = document.createElement('div');
+        emoji.className = 'applause-emoji';
+        emoji.textContent = '👏';
+        
+        // Posición aleatoria horizontal
+        emoji.style.left = Math.random() * 100 + 'vw';
+        // Retraso aleatorio para el efecto de lluvia
+        emoji.style.animationDelay = Math.random() * 0.5 + 's';
+        
+        container.appendChild(emoji);
+        
+        // Limpiar elemento después de la animación
+        setTimeout(() => emoji.remove(), 2500);
+    }
+
+    // EFECTO SONORO: Palmadas sintéticas
     try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-        // Simulación de aplauso usando ruido blanco con envolventes rápidas
         for (let i = 0; i < 8; i++) {
-            const bufferSize = audioCtx.sampleRate * 0.2; // 0.2 segundos por "palmada"
+            const bufferSize = audioCtx.sampleRate * 0.2;
             const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
             const data = buffer.getChannelData(0);
-
             for (let j = 0; j < bufferSize; j++) {
-                data[j] = Math.random() * 2 - 1; // Ruido blanco
+                data[j] = Math.random() * 2 - 1;
             }
-
             const noise = audioCtx.createBufferSource();
             noise.buffer = buffer;
-
             const filter = audioCtx.createBiquadFilter();
             filter.type = 'bandpass';
             filter.frequency.value = 1200 + (Math.random() * 500);
             filter.Q.value = 1;
-
             const gainNode = audioCtx.createGain();
-            const startTime = audioCtx.currentTime + (i * 0.08); // Palmadas rápidas
-
+            const startTime = audioCtx.currentTime + (i * 0.08);
             gainNode.gain.setValueAtTime(0, startTime);
             gainNode.gain.linearRampToValueAtTime(0.3, startTime + 0.01);
             gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.15);
-
             noise.connect(filter);
             filter.connect(gainNode);
             gainNode.connect(audioCtx.destination);
-
             noise.start(startTime);
             noise.stop(startTime + 0.2);
         }
     } catch (e) {
-        console.log("Error al reproducir aplauso");
+        console.log("Error al reproducir aplauso sonoro");
     }
 }
 
