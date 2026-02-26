@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaludTrack - Control de Medicamentos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <h1>SaludTrack</h1>
+            <p>Tu control de salud diario</p>
+        </header>
+
+        <main>
+            <section class="card form-section">
+                <h2>Agregar Medicamento</h2>
+                <form id="medication-form">
+                    <div class="form-group">
+                        <label for="med-name">Nombre del Medicamento</label>
+                        <input type="text" id="med-name" required placeholder="Ej. Paracetamol 500mg">
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label for="med-dose">Dosis</label>
+                            <input type="text" id="med-dose" required placeholder="1 pastilla">
+                        </div>
+                        <div class="col">
+                            <label for="med-freq">Frecuencia (horas)</label>
+                            <input type="number" id="med-freq" required min="1" max="24" placeholder="Cada 8 hrs">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="med-start">Hora de Inicio (Hoy)</label>
+                        <input type="time" id="med-start" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="med-duration">Duración (hasta 3 meses)</label>
+                        <select id="med-duration">
+                            <option value="7">1 Semana</option>
+                            <option value="30">1 Mes</option>
+                            <option value="60">2 Meses</option>
+                            <option value="90">3 Meses</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">Programar Medicamento</button>
+                </form>
+            </section>
+
+            <section class="card schedule-section">
+                <div class="schedule-header">
+                    <h2>Cronograma de Hoy</h2>
+                    <span id="current-date"></span>
+                </div>
+                <div id="timeline" class="timeline">
+                    <!-- Eventos generados dinámicamente -->
+                </div>
+                <div id="empty-state" class="empty-state">
+                    <p>No tienes medicamentos programados para hoy.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <button id="btn-reset-app" class="btn-text-danger">Reiniciar Aplicación (Borrar todo)</button>
+        </footer>
+    </div>
+
+    <!-- Modal de Alerta -->
+    <div id="alert-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="alert-icon-container"></div>
+                <h3>¡Hora de tu medicina!</h3>
+            </div>
+            <div class="modal-body">
+                <p id="alert-med-name" class="alert-name"></p>
+                <p id="alert-med-dose" class="alert-dose"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-take-med" class="btn-primary">Ya lo tomé</button>
+                <button id="btn-snooze" class="btn-secondary">Posponer 10 min</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
