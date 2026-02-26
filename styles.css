@@ -60,7 +60,31 @@ header h1 {
 header p {
     color: var(--text-muted);
     font-size: 0.95rem;
+    margin-bottom: 15px;
 }
+
+.patient-name-container {
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+#patient-name-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+#patient-name-input:focus {
+    background: var(--surface);
+    border-color: var(--primary);
+}
+
 
 .card {
     background: var(--surface);

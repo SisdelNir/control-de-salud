@@ -13,8 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDateDisplay();
     renderTimeline();
     setupForm();
+    setupPatientName();
     startAlertChecker();
 });
+
+function setupPatientName() {
+    const input = document.getElementById('patient-name-input');
+    // Cargar nombre guardado
+    input.value = localStorage.getItem('patientName') || '';
+    
+    // Guardar nombre al cambiar
+    input.addEventListener('input', () => {
+        localStorage.setItem('patientName', input.value);
+    });
+}
+
 
 function updateDateDisplay() {
     const dateEl = document.getElementById('current-date');
@@ -218,6 +231,7 @@ let lastNotifiedId = null;
 
 function triggerAlert(item) {
     currentAlertItem = item;
+    const patientName = localStorage.getItem('patientName') || 'Paciente';
 
     // Mostrar modal in-app con animaciones
     const modalContent = document.querySelector('.modal-content');
@@ -226,6 +240,10 @@ function triggerAlert(item) {
     // Ícono de campana sonando
     const iconContainer = document.getElementById('alert-icon-container');
     if (iconContainer) iconContainer.innerHTML = '<span class="bell-animation">🔔</span>';
+
+    // Personalizar título con nombre
+    const modalTitle = document.querySelector('.modal-header h3');
+    if (modalTitle) modalTitle.textContent = `¡Hola ${patientName}! Hora de tu medicina`;
 
     const medNameEl = document.getElementById('alert-med-name');
     medNameEl.textContent = item.name;
@@ -242,7 +260,7 @@ function triggerAlert(item) {
         playChime();
 
         if (Notification.permission === "granted") {
-            new Notification("SaludTrack: Hora de tu medicina", {
+            new Notification(`SaludTrack para ${patientName}`, {
                 body: `Toma ahora: ${item.name} (${item.dose})`,
                 tag: item.instanceId, // Evita duplicados en el centro de notificaciones
                 requireInteraction: true, // En navegadores que lo soportan, mantiene la notif.
@@ -354,7 +372,7 @@ function playApplause() {
             noise.start(startTime);
             noise.stop(startTime + 0.2);
         }
-    } catch (e) {
+    } catch (e)) {
         console.log("Error al reproducir aplauso sonoro");
     }
 }
